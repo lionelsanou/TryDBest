@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "trydbest",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authtrydbestc8d9ac74",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

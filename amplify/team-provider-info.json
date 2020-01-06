@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "trydbest-dev-20191218193159-authRole",
+            "UnauthRoleArn": "arn:aws:iam::792615289216:role/trydbest-dev-20191218193159-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::792615289216:role/trydbest-dev-20191218193159-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "trydbest-dev-20191218193159-deployment",
+            "UnauthRoleName": "trydbest-dev-20191218193159-unauthRole",
+            "StackName": "trydbest-dev-20191218193159",
+            "StackId": "arn:aws:cloudformation:us-east-1:792615289216:stack/trydbest-dev-20191218193159/f8930ec0-21f6-11ea-a275-12a640cb526e"
+        },
+        "categories": {
+            "auth": {
+                "trydbestc8d9ac74": {}
+            }
+        }
+    }
+}

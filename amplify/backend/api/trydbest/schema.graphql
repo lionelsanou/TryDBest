@@ -1,0 +1,37 @@
+type User @model {
+  id: ID! 
+  firstname: String
+  lastname: String
+  email:String
+  profilePicture:String
+  isRestaurantOwnser:Boolean
+  restaurants: [Restaurant] @connection(name: "UserRestaurants")
+}
+type Restaurant @model {
+  id: ID!
+  addressLine1: String
+  addressLine2: String
+  city: String
+  state:String
+  zipcode:String
+  country:String
+  user: User @connection(name: "UserRestaurants")
+  tastingEvents: [TestingEvent] @connection(name: "RestaurantTastingEvents")
+}
+type TestingEvent @model {
+  id: ID!
+  testingEventName:String
+  eventStartDate: String
+  eventStartTime:String
+  eventEndDate:String
+  eventEndTime:String
+  restaurant: Restaurant @connection(name: "RestaurantTastingEvents")
+  eventMenus:[EventMenu] @connection(name:"TastingEventMenus")
+}
+
+type EventMenu @model{
+  id:ID!
+  menuPicture:String
+  menuPrice:String
+  testingEvent:TestingEvent @connection(name:"TastingEventMenus")
+}

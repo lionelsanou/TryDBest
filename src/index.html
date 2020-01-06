@@ -6,8 +6,94 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Simple line Icon -->
+    <link rel="stylesheet" href="assets/css/simple-line-icons.css">
+    <!-- Themify Icon -->
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <!-- Hover Effects -->
+    <link rel="stylesheet" href="assets/css/set1.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--w3 school for the restaurant profile-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
-<body>
+<body class="w3-theme-l5">
   <app-root></app-root>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="assets/js/jquery-3.2.1.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+
+  <script>
+      $(".map-icon").click(function () {
+          $(".map-fix").toggle();
+      });
+  </script>
+  <script>
+      // Want to customize colors? go to snazzymaps.com
+      function myMap() {
+          var maplat = $('#map').data('lat');
+          var maplon = $('#map').data('lon');
+          var mapzoom = $('#map').data('zoom');
+          // Styles a map in night mode.
+          var map = new google.maps.Map(document.getElementById('map'), {
+              center: {
+                  lat: maplat,
+                  lng: maplon
+              },
+              zoom: mapzoom,
+              scrollwheel: false
+          });
+          var marker = new google.maps.Marker({
+              position: {
+                  lat: maplat,
+                  lng: maplon
+              },
+              map: map,
+              title: 'We are here!'
+          });
+      }
+  </script>
+  <!-- Map JS (Please change the API key below. Read documentation for more info) -->
+  <!--<script src="https://maps.googleapis.com/maps/api/js?callback=myMap&key=AIzaSyAESnbBcmPt_HlYioyVLD4Mwe6ErFwknoY"></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAESnbBcmPt_HlYioyVLD4Mwe6ErFwknoY"></script>
+  <script>
+          // Accordion
+          function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+              x.className += " w3-show";
+              x.previousElementSibling.className += " w3-theme-d1";
+            } else { 
+              x.className = x.className.replace("w3-show", "");
+              x.previousElementSibling.className = 
+              x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+          }
+          
+          // Used to toggle the menu on smaller screens when clicking on the menu button
+          function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+              x.className += " w3-show";
+            } else { 
+              x.className = x.className.replace(" w3-show", "");
+            }
+          }
+          </script>
+         
+
 </body>
 </html>

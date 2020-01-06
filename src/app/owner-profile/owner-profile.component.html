@@ -1,0 +1,420 @@
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+        href="javascript:void(0);" onclick="openNav()">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4">
+        <i class="fa fa-home w3-margin-right"></i>TryDBest</a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News">
+        <i class="fa fa-globe"></i>
+      </a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings">
+        <i routerLink="/profile" class="fa fa-user"></i>
+      </a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages">
+        <i class="fa fa-envelope"></i>
+      </a>
+      <div class="w3-dropdown-hover w3-hide-small">
+        <button class="w3-button w3-padding-large" title="Notifications">
+          <i class="fa fa-bell"></i>
+          <span class="w3-badge w3-right w3-small w3-green">3</span>
+        </button>
+        <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+          <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+          <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+          <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+        </div>
+      </div>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+        <img [src]="url" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+      </a>
+    </div>
+  </div>
+  
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+  
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+      <i class="fa fa-globe"> Profile</i>
+    </a>
+    <a class="w3-bar-item w3-button  w3-padding-large w3-hover-white">
+      <i routerLink="/profile" class="fa fa-user"> Account Settings</i>
+    </a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+      <i class="fa fa-envelope"> Messages</i>
+    </a>
+    <div class="w3-dropdown-hover">
+      <button class="w3-button w3-padding-large" title="Notifications">
+        <i class="fa fa-bell"></i>
+        <span class="w3-badge w3-right w3-small w3-green">3</span>
+      </button>
+      <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+        <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+        <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+        <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+      </div>
+    </div>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+      <img [src]="url" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+    </a>
+  </div>
+  
+  <!-- Page Container -->
+  <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <!-- The Grid -->
+    <div class="w3-row">
+      <!-- Left Column -->
+      <div class="w3-col m3">
+        <!-- Profile -->
+        <div class="w3-card-4 w3-round w3-white">
+          <div class="w3-container">
+            <h4 class="w3-center">My Profile</h4>
+            <p class="w3-center">
+              <img [src]="url" class="w3-circle" style="height:90px;width:90px" alt="Avatar">
+            </p>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <p>
+              <a routerLink="/profile">
+                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
+              </a> {{user.email}}</p>
+          </div>
+        </div>
+        <br>
+  
+        <!-- Accordion -->
+        <div class="w3-card w3-round">
+          <div class="w3-white">
+            <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+              <i class="fa fa-home fa-fw w3-margin-right"></i> My Restaurants</button>
+            <div id="Demo1" class="w3-show w3-container">
+              <div *ngIf="noAddress; else oneOrMoreAddress" >
+                  <b>no address available yet</b>
+              </div>
+              <ng-template #oneOrMoreAddress>
+
+                <div *ngFor="let address of dataService.getUser().restaurants;let i =index">
+                  <a (click)="addressDetails(i)" class="btn btn-link"> 
+                      <div class="container">
+                          <div class="row">
+                               
+                              
+                                    <small class="text-secondary">{{address.addressLine1}}, {{address.state}}, {{address.zipcode}}</small>
+                                  
+                          </div>
+                          </div>
+
+                  </a>
+                  <br/>
+                  
+                </div>
+                <button type="button" (click)="addAnotherAddress()" class="btn btn-link">+ add another restaurant location</button>
+                </ng-template>
+           
+            </div>
+            <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+              <i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Testing Events</button>
+            <div id="Demo2" class="w3-show w3-container">
+            <div *ngIf="eventName">
+              <b>{{eventName}}</b>
+            </div>
+            </div>
+            <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+              <i class="fa fa-home fa-fw w3-margin-right"></i> My Restaurant Photos</button>
+            <div id="Demo3" class="w3-show w3-container">
+              <div class="w3-row-padding">
+                <br>
+                <div>
+                   <!-- Display Image -->
+        <div style="width:100%" class="w3-margin-bottom">
+        <amplify-s3-image [path]="imageUrl" 
+        [options]="{'level': 'public'}" *ngIf="showPhoto">
+        </amplify-s3-image>
+      </div>
+                </div>
+                <div class="">
+                    <div style="width:100%" class="w3-margin-bottom">
+                        <amplify-s3-image [path]="imageUrl" 
+                        [options]="{'level': 'public'}" *ngIf="showPhoto">
+                        </amplify-s3-image>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <!-- End Left Column -->
+      </div>
+  
+      <!-- Middle Column -->
+      <div class="w3-col m7">
+            <div class="w3-container w3-card w3-white w3-round w3-margin">
+                    <form [formGroup]="userForm" novalidate>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-5">
+                            <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" required class="form-control" formControlName="firstname" placeholder="Enter Your First Name">
+                                    
+                                    <div *ngIf="userForm.controls['firstname'].invalid" class="alert alert-danger">
+                                        <div>
+                                        First Name is required.
+                                      </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">                           </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" class="form-control" required formControlName="lastname" placeholder="Enter Your Last Name">
+                                   
+                                    <div *ngIf="userForm.controls['lastname'].invalid" class="alert alert-danger">
+                                        <div>
+                                        Last Name is required.
+                                      </div>
+                                    </div>
+                            
+                                  </div>
+                            </div>
+                        </div>
+                        <button type="submit"  [disabled]="userForm.invalid" (click)="saveFirstNameLastName()" class="btn btn-primary">Save</button> 
+                        </div>
+                            <br/>
+                            
+                            
+                    </form>
+            </div>
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+          <br>
+  
+          <div id="address">
+            <form [formGroup]="restaurantForm">
+  
+              <div class="form-group">
+                <label for="inputAddress">Address Line 1</label>
+                <input type="text" class="form-control" formControlName="addressLine" placeholder="address line 1">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address Line 2</label>
+                <input type="text" class="form-control" formControlName="addressLine2" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select formControlName="state" class="form-control">
+                    <option *ngFor="let state of usStates" [ngValue]="state.name">{{state.name}}</option>
+  
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" class="form-control" formControlName="zipCode">
+                </div>
+              </div>
+  
+              <button type="submit"  (click)="saveAddress()" class="btn btn-primary">Save Address</button>
+            </form>
+          </div>
+  
+          <br/>
+  
+          <hr class="w3-clear">
+          
+         
+          
+        </div>
+
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+            <b>Schedule a Testing Event:</b>
+            <br/>
+            <br/>
+            <form #eventForm="ngForm" novalidate>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                <div class="form-group">
+                        <label for="firstname"><b>Tasting Event Name :</b></label>
+                        <input type="text" required  name="eventName" [(ngModel)]="eventName" placeholder="Enter Your Event Name">
+                        
+                       
+                </div>
+            </div>
+          </div>
+          <br/>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>
+                                <b>Event Start Date and Time:</b>
+                                <input [(ngModel)]="selectedMoment1"
+                                name="selectedMoment1"
+                                [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1">
+                         <owl-date-time #dtPicker1></owl-date-time>
+                            </label>
+            </div>
+            <div class="col-md-2">                           </div>
+            <div class="col-md-5">
+                <label>
+                    <b>Event End Date and Time:</b>
+                    <input [(ngModel)]="selectedMoment2"
+                    name="selectedMoment2"
+           [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+    <owl-date-time #dtPicker2></owl-date-time>
+                </label>
+                </div>
+            </div>
+            <br/>
+            <br/>
+     
+            <button type="submit"  (click)="saveEventDate()" class="btn btn-primary">Save</button> 
+            </div>
+                <br/>
+                
+                
+        </form>
+       
+
+            
+    </div>
+  
+
+    <div class="w3-container w3-card w3-white w3-round w3-margin">
+        <b>Testing Event Gallery:</b>
+        <br/>
+        <br/>
+      
+
+            <div class="row">
+                <div class="col-md-5">
+        <div class="form-group">
+                <label for="firstname"><b>Dish Price :</b></label>
+                <input type="text" name="menuPrice" [(ngModel)]="menuPrice" placeholder="Enter the Price of the Dish">
+                
+               
+        </div>
+        </div>
+            </div>
+       
+
+        <!-- Display Image -->
+        <amplify-s3-image [path]="imageUrl" 
+        [options]="{'level': 'public'}" *ngIf="showPhoto">
+        </amplify-s3-image>
+      
+      <!-- Photo Picker -->
+        <amplify-photo-picker *ngIf="!showPhoto" 
+        path="image"[storageOptions]="{'level': 'public'}" (uploaded)="onImageUploaded($event)">
+        </amplify-photo-picker>
+
+        <div class="w3-row-padding" style="margin:0 -16px">
+            <button type="button" class="btn btn-info" *ngIf="showPhoto" (click)="editPhoto()">Edit</button>
+        </div>
+        <br/>
+        <br/>
+        <div *ngIf="showPhoto">
+            <button type="button" (click)="addImage2()" class="btn btn-link">+ add another image</button>
+        </div>
+
+        <div *ngIf="image2selection">
+              <!-- Display Image -->
+        <amplify-s3-image [path]="imageUrl2" 
+        [options]="{'level': 'public'}" *ngIf="showPhoto2">
+        </amplify-s3-image>
+      
+      <!-- Photo Picker -->
+        <amplify-photo-picker *ngIf="!showPhoto2" 
+        path="image"[storageOptions]="{'level': 'public'}" (uploaded)="onImageUploaded($event)">
+        </amplify-photo-picker>
+        </div>
+
+       
+        
+        
+        
+        
+   
+
+        
+</div>
+  
+  
+        <!-- End Middle Column -->
+      </div>
+  
+      <!-- Right Column -->
+      <div class="w3-col m2">
+        <div class="w3-card w3-round w3-white w3-center">
+          <div class="w3-container">
+            <p>Upcoming Events:</p>
+            <img src="assets/images/featured1.jpg" alt="Forest" style="width:100%;">
+            <p>
+              <strong>Dancing Goat Coffee</strong>
+            </p>
+            <p>Friday 03:00 PM - 07:00 PM</p>
+            <p>
+              <button class="w3-button w3-block w3-theme-l4">Info</button>
+            </p>
+          </div>
+        </div>
+        <br>
+  
+        <div class="w3-card w3-round w3-white w3-center">
+          <div class="w3-container">
+            <p>Friend Request</p>
+            <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar" style="width:50%">
+            <br>
+            <span>Jane Doe</span>
+            <div class="w3-row w3-opacity">
+              <div class="w3-half">
+                <button class="w3-button w3-block w3-green w3-section" title="Accept">
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>
+              <div class="w3-half">
+                <button class="w3-button w3-block w3-red w3-section" title="Decline">
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+  
+        <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
+          <p>ADS</p>
+        </div>
+        <br>
+  
+        <div class="w3-card w3-round w3-white w3-padding-32 w3-center">
+          <p>
+            <i class="fa fa-bug w3-xxlarge"></i>
+          </p>
+        </div>
+  
+        <!-- End Right Column -->
+      </div>
+  
+      <!-- End Grid -->
+    </div>
+  
+    <!-- End Page Container -->
+  </div>
+  <br>
+  
+  <!-- Footer -->
+  <footer class="w3-container w3-theme-d3 w3-padding-16">
+    <h5>Footer</h5>
+  </footer>
