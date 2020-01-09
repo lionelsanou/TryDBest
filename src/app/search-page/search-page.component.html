@@ -1,20 +1,130 @@
-<br/>
-<br/>
-<br/>
+<app-navigationbar [userIsLoggedIn]="isLoggedIn"></app-navigationbar>
 
-<div class="row d-flex justify-content-center">
-        <div class="col-md-10">
-                <form>
-                        <div class="input-group">
-                          <input type="email" class="form-control" size="50" placeholder="Enter Your Location" required>
-                          <div class="input-group-btn">
-                            <button (click)="search()" type="button" class="btn btn-danger">Search</button>
-                          </div>
-                        </div>
-                      </form>
+    <div class="container">
+          
+            <hr>
             
-        </div>
-    </div>
+            <div class="row">
+                <aside class="col-sm-4">
+            <p>Filter</p>
+            
+            
+            <div class="card">
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Restaurants Categories</h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                        <form>
+                            <label class="form-check">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-label">
+                                Asian
+                              </span>
+                            </label> <!-- form-check.// -->
+                            <label class="form-check">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-label">
+                                Italian
+                              </span>
+                            </label>  <!-- form-check.// -->
+                            <label class="form-check">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-label">
+                                Southern Food
+                              </span>
+                            </label>  <!-- form-check.// -->
+                        </form>
+            
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article> <!-- card-group-item.// -->
+                
+                
+            </div> <!-- card.// -->
+            
+            
+            
+            
+                </aside> <!-- col.// -->
+               
+                <aside class="col-sm-4">
+                        <p></p>
+                        
+                        
+                        
+                        <div class="card">
+                                <article class="card-group-item">
+                                        <header class="card-header">
+                                            <h6 class="title">Choose type </h6>
+                                        </header>
+                                        <div class="filter-content">
+                                            <div class="card-body">
+                                            <label class="form-check">
+                                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                                              <span class="form-check-label">
+                                                Wings
+                                              </span>
+                                            </label>
+                                            <label class="form-check">
+                                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                                              <span class="form-check-label">
+                                                Pizza
+                                              </span>
+                                            </label>
+                                            <label class="form-check">
+                                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                                              <span class="form-check-label">
+                                                Pasta
+                                              </span>
+                                            </label>
+                                            </div> <!-- card-body.// -->
+                                        </div>
+                                    </article> <!-- card-group-item.// -->
+                            
+                        </div> <!-- card.// -->
+                        
+                        
+                        
+                            </aside> <!-- col.// -->
+            
+                
+                <aside class="col-sm-4">
+            <p></p>
+            
+            
+            
+            <div class="card">
+                <article class="card-group-item">
+                    <header class="card-header">
+                        <h6 class="title">Price Range </h6>
+                    </header>
+                    <div class="filter-content">
+                        <div class="card-body">
+                        <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label>Min</label>
+                          <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
+                        </div>
+                        <div class="form-group col-md-6 text-right">
+                          <label>Max</label>
+                          <input type="number" class="form-control" placeholder="$1,0000">
+                        </div>
+                        </div>
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article> <!-- card-group-item.// -->
+                
+            </div> <!-- card.// -->
+            
+            
+            
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+            
+            </div> 
+            <!--container end.//-->
 
 
 <!--// SLIDER -->
@@ -33,117 +143,54 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap">
-                        <a href="detail.html">
-                            <img src="assets/images/featured1.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-orange">6.5</span>
-                            <div class="featured-title-box">
-                                <h6>Burger & Lobster</h6>
-                                <p>Restaurant </p>
-                                <span>• </span>
-                                <p>3 Reviews</p>
-                                <span> • </span>
-                                <p>
-                                    <span>Tasting Event Date</span></p>
-                                <ul>
-                                    <li>
-                                        <span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Atlanta, Ga 11230</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-    
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
+              
+
+                    <div  *ngFor="let restaurant of restaurants" class="col-md-4 featured-responsive">
+                            <div class="featured-place-wrap">
+                                <a href="detail.html">
+                                    <img src="assets/images/featured3.jpg" class="img-fluid" alt="#">
+                                    <span class="featured-rating">3.2</span>
+                                    <div class="featured-title-box">
+                                        <h6>{{restaurant.restaurantName}}</h6>
+                                        <p>Restaurant </p>
+                                        <span>• </span>
+                                        <p>3 Reviews</p>
+                                        <span> • </span>
+                                        <h6>Event Name : {{restaurant.testingEvents[0].testingEventName}}</h6>
+                                        <p>
+                                            <span>Tasting Event Start Date</span> : {{restaurant.testingEvents[0].eventStartDate | date:'medium'}}
+                                        </p>
+                                        <p>
+                                                <span>Tasting Event Start Date</span> : {{restaurant.testingEvents[0].eventEndDate | date:'medium'}}
+                                            </p>
+
+                                        <ul>
+                                            <li>
+                                                <span class="icon-location-pin"></span>
+                                                <p>{{restaurant.addressLine1}},{{restaurant.city}},{{restaurant.zipCode}}</p>
+                                            </li>
+                                            <li>
+                                                <span class="icon-screen-smartphone"></span>
+                                                <p>{{restaurant.phoneNumber}}</p>
+                                            </li>
+                                            <li>
+                                                <span class="icon-link"></span>
+                                                <p>{{restaurant.websiteAddress}}</p>
+                                            </li>
+            
+                                        </ul>
+                                        <div class="bottom-icons">
+                                            <div class="open-now">OPEN NOW</div>
+                                            <span class="ti-heart"></span>
+                                            <span class="ti-bookmark"></span>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap">
-                        <a href="detail.html">
-                            <img src="assets/images/featured2.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">9.5</span>
-                            <div class="featured-title-box">
-                                <h6>Joe’s Shanghai</h6>
-                                <p>Restaurant </p>
-                                <span>• </span>
-                                <p>3 Reviews</p>
-                                <span> • </span>
-                                <p>
-                                    <span>Tasing Event Date</span></p>
-                                <ul>
-                                    <li>
-                                        <span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Atlanta, Ga 11230</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-    
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">CLOSED NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap">
-                        <a href="detail.html">
-                            <img src="assets/images/featured3.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating">3.2</span>
-                            <div class="featured-title-box">
-                                <h6>Tasty Hand-Pulled Noodles</h6>
-                                <p>Restaurant </p>
-                                <span>• </span>
-                                <p>3 Reviews</p>
-                                <span> • </span>
-                                <p>
-                                    <span>Tasting Event Date</span></p>
-                                <ul>
-                                    <li>
-                                        <span class="icon-location-pin"></span>
-                                        <p>1301 Avenue, Atlanta, Ga 11230</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-screen-smartphone"></span>
-                                        <p>+44 20 7336 8898</p>
-                                    </li>
-                                    <li>
-                                        <span class="icon-link"></span>
-                                        <p>https://burgerandlobster.com</p>
-                                    </li>
-    
-                                </ul>
-                                <div class="bottom-icons">
-                                    <div class="open-now">OPEN NOW</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                        </div>
+
+                
+                
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-4">

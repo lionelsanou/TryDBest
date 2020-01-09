@@ -3,9 +3,11 @@ import {DataService} from 'src/DataService';
 import { FormBuilder,FormGroup, FormControl,Validators } from '@angular/forms';
 import * as moment from 'moment';
 import {User} from 'src/app/models/user';
+import {Router} from '@angular/router';
 
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import * as mutations from 'src/graphql/mutations';
+import {Auth} from 'aws-amplify';
 
 
 @Component({
@@ -14,7 +16,11 @@ import * as mutations from 'src/graphql/mutations';
   styleUrls: ['./owner-profile.component.scss']
 })
 export class OwnerProfileComponent implements OnInit {
+  showSpinnerName:boolean;
+  showSpinnerAddress=false;
+  showSpinnerEventDate=false;
   usStates:any;
+  url:string;
   form: FormGroup;
   options: any = {format: 'DD/MM/YYYY'};
   isLoggedIn: boolean = true;
@@ -36,7 +42,7 @@ noAddress:boolean=true;
 imageUrl:string;
 imageUrl2:string;
 imageUrl3:string;
-restaurantIndex:number=20;
+restaurantIndex:number=0;
 image2selection:boolean=false;
   userForm: FormGroup = new FormGroup({
     firstname: new FormControl(['',Validators.required]),
@@ -50,9 +56,12 @@ image2selection:boolean=false;
     city:new FormControl(),
     state:new FormControl(),
     zipCode:new FormControl(),
-    country:new FormControl()
+    country:new FormControl(),
+    restaurantName:new FormControl(),
+    phoneNumber:new FormControl(),
+    websiteAddress:new FormControl()
   });
-  constructor(public dataService:DataService,fb: FormBuilder) {
+  constructor(public dataService:DataService,fb: FormBuilder,public router:Router) {
       this.form = fb.group({
       date: [moment('2015-11-18T00:00Z'), Validators.required]
     }); 
@@ -61,20 +70,47 @@ image2selection:boolean=false;
     this.image2selection=true;
   }
  async  saveEventDate(){
+   this.showSpinnerEventDate=true;
     console.log("Lets save the event date----------------- "+JSON.stringify(this.selectedMoment1));
     console.log("Lets save the event time----------------- "+JSON.stringify(this.selectedMoment2));
-    const eventDate= {
-      //id:this.user.id,
-      testingEventRestaurantId:this.user.id,
-      testingEventName:this.eventName,
-      eventStartDate:this.selectedMoment1,
-      eventEndDate:this.selectedMoment2
-    }
+    let eventDate= {}
     console.log("Let's create a new event date and time "+JSON.stringify(eventDate));
-    let user=await API.graphql(graphqlOperation(mutations.createTestingEvent, {input:eventDate}));
-
+    console.log("lenght of tasting event "+this.user.restaurants[this.restaurantIndex].testingEvents.length);
+    if(this.user.restaurants[this.restaurantIndex].testingEvents.length==0){
+      eventDate= {
+        //id:this.user.id,
+        testingEventRestaurantId:this.user.restaurants[this.restaurantIndex].id,
+        testingEventName:this.eventName,
+        eventStartDate:this.selectedMoment1,
+        eventEndDate:this.selectedMoment2
+      }
+      console.log("creating a new tasting event");
+      let user=await API.graphql(graphqlOperation(mutations.createTestingEvent, {input:eventDate}));
+    }else{
+      const eventDate= {
+        id:this.user.restaurants[this.restaurantIndex].testingEvents[0].id,
+        testingEventRestaurantId:this.user.restaurants[this.restaurantIndex].id,
+        testingEventName:this.eventName,
+        eventStartDate:this.selectedMoment1,
+        eventEndDate:this.selectedMoment2
+      }
+      console.log("we are updating the new tasting event");
+      let user=await API.graphql(graphqlOperation(mutations.updateTestingEvent, {input:eventDate}));
+    }
+    //let user=await API.graphql(graphqlOperation(mutations.createTestingEvent, {input:eventDate}));
+    this.showSpinnerEventDate=false;
   }
-  async onImageUploaded(e) {
+  logout(){
+    console.log("The user is logging out");
+    Auth.signOut({global:true})
+    .then(data=>{
+      this.router.navigate(['/landing']);
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+  }
+  onImageUploaded(e) {
     const imageUrl = e.key;
     console.log("The uploaded photo URL is "+JSON.stringify(imageUrl));
     const eventMenu={
@@ -84,13 +120,20 @@ image2selection:boolean=false;
       menuPrice:this.menuPrice
     }
     console.log("The uploaded tasting menu is "+JSON.stringify(imageUrl));
-    let  user = await API.graphql(graphqlOperation(mutations.createEventMenu, {input:eventMenu}));
-    this.showPhoto=true;
+    let  result =API.graphql(graphqlOperation(mutations.createEventMenu, {input:eventMenu}));
+    result.then(response=>{
+      console.log("the image upload response "+JSON.stringify(response));
+      console.log("the image uploaded URL is  "+JSON.stringify(response.data.createEventMenu.menuPicture));
+      this.imageUrl=response.data.createEventMenu.menuPicture;
+      this.showPhoto=true;
+    })
+   
     
     }
     
   
    async saveFirstNameLastName(){
+     this.showSpinnerName=true;
      console.log("the user first name is "+this.userForm.get('firstname').value);
      console.log("the user last name is "+this.userForm.get('lastname').value);
      const userFirstNameLastName = {
@@ -99,7 +142,8 @@ image2selection:boolean=false;
       lastname: this.userForm.get('lastname').value
   };
   let user="";
-    if(this.user.firstname){
+  console.log("Update User info "+(this.user.firstname && this.user.firstname));
+    if(this.user.firstname && this.user.firstname){
       console.log("Existing User");
        user = await API.graphql(graphqlOperation(mutations.updateUser, {input:userFirstNameLastName}));
     }else{
@@ -111,25 +155,66 @@ image2selection:boolean=false;
      //if data is save successfully lets add it to the data service
      this.dataService.getUser().firstname=this.userForm.get('firstname').value;
      this.dataService.getUser().lastname=this.userForm.get('lastname').value;
+     this.showSpinnerName=false;
     }
 
     async saveAddress(){
+      this.showSpinnerAddress=true;
      console.log("the user addressLine1 is "+this.restaurantForm.get('addressLine').value);
      console.log("the user addressLine2 is "+this. restaurantForm.get('addressLine2').value);
-     const address = {
-      //id:this.user.id,
-      restaurantUserId:this.user.id,
-        addressLine1: this.restaurantForm.get('addressLine').value,
-        
-        city: this.restaurantForm.get('city').value,
-        state: this.restaurantForm.get('state').value,
-        zipcode: this.restaurantForm.get('zipCode').value,
-        country: "US"
     
+    console.log("save user address "+JSON.stringify(this.user.restaurants.length));
+    var address ={};
+    let updateAddress:boolean=false;
+    if(this.user.restaurants.length==1 && this.user.restaurants[0].addressLine1==""){
+      
+      address = {
+        //id:this.user.id,
+        restaurantUserId:this.user.id,
+          addressLine1: this.restaurantForm.get('addressLine').value,
+          restaurantName:this.restaurantForm.get('restaurantName').value,
+          websiteAddress:this.restaurantForm.get('websiteAddress').value,
+          phoneNumber:this.restaurantForm.get('phoneNumber').value,
+          city: this.restaurantForm.get('city').value,
+          state: this.restaurantForm.get('state').value,
+          zipcode: this.restaurantForm.get('zipCode').value,
+          country: "US"
+      
+      }
+      //first time user is creating an address
+      console.log("this is new address");
+      const result = await API.graphql(graphqlOperation(mutations.createRestaurant, {input:address}));
+
+    }else{
+      updateAddress=true;
+      console.log("we are updating an existing address");
+      address = {
+        id:this.user.restaurants[this.restaurantIndex].id,
+        restaurantUserId:this.user.id,
+          addressLine1: this.restaurantForm.get('addressLine').value,
+          restaurantName:this.restaurantForm.get('restaurantName').value,
+          websiteAddress:this.restaurantForm.get('websiteAddress').value,
+          phoneNumber:this.restaurantForm.get('phoneNumber').value,
+          city: this.restaurantForm.get('city').value,
+          state: this.restaurantForm.get('state').value,
+          zipcode: this.restaurantForm.get('zipCode').value,
+          country: "US"
+      
+      }
+      //update existing address
+      const result = await API.graphql(graphqlOperation(mutations.updateRestaurant, {input:address}));
+
     }
-    const result = await API.graphql(graphqlOperation(mutations.createRestaurant, {input:address}));
-    console.log("the user address has been successfully created "+JSON.stringify(address))
+
+   // const result = await API.graphql(graphqlOperation(mutations.createRestaurant, {input:address}));
+   if(updateAddress){
+    console.log("the user address has been successfully updated"+JSON.stringify(address));
+   }else{
+   console.log("the user address has been successfully created "+JSON.stringify(address));
     this.dataService.saveAddress(address);
+    
+   }
+   this.showSpinnerAddress=false;
     //location.reload();
     }
 
@@ -157,7 +242,7 @@ image2selection:boolean=false;
       this.restaurantIndex=index;
       this.userForm=new FormGroup({firstname:new FormControl(this.user.firstname),lastname:new FormControl(this.user.lastname),profilepic:new FormControl(this.user.profilePicture)});
       this.restaurantForm=new FormGroup({addressLine:new FormControl(this.user.restaurants[index].addressLine1),addressLine2:new FormControl(this.user.restaurants[index].addressLine2),city:new FormControl(this.user.restaurants[index].city),state:new FormControl(this.user.restaurants[index].state),
-      zipCode:new FormControl(this.user.restaurants[index].zipcode)
+      zipCode:new FormControl(this.user.restaurants[index].zipcode),restaurantName:new FormControl(this.user.restaurants[0].restaurantName),phoneNumber:new FormControl(this.user.restaurants[0].phoneNumber),websiteAddress:new FormControl(this.user.restaurants[0].websiteAddress)
       });
       console.log("User detail is "+JSON.stringify(this.user.restaurants[index]));
       if(this.user.restaurants[index].testingEvents[0]){
@@ -193,6 +278,7 @@ image2selection:boolean=false;
     }
 
   ngOnInit() {
+    this.url="";
     this.usStates= [
       { name: 'ALABAMA', abbreviation: 'AL'},
       { name: 'ALASKA', abbreviation: 'AK'},
@@ -257,13 +343,14 @@ image2selection:boolean=false;
     this.restaurantIndex=0;
     console.log("OwnerComponent - - The user data is "+JSON.stringify(this.dataService.getUser()));
     this.user=this.dataService.getUser();
+    if(this.user.restaurants[0]){
     if(this.user.restaurants[0].addressLine1!=""){
       this.noAddress=false;
     }
+  }
     this.userForm=new FormGroup({firstname:new FormControl(this.user.firstname),lastname:new FormControl(this.user.lastname),profilepic:new FormControl(this.user.profilePicture)});
     this.restaurantForm=new FormGroup({addressLine:new FormControl(this.user.restaurants[0].addressLine1),addressLine2:new FormControl(this.user.restaurants[0].addressLine2),city:new FormControl(this.user.restaurants[0].city),state:new FormControl(this.user.restaurants[0].state),
-    zipCode:new FormControl(this.user.restaurants[0].zipcode)
-    });
+    zipCode:new FormControl(this.user.restaurants[0].zipcode),restaurantName:new FormControl(this.user.restaurants[0].restaurantName),phoneNumber:new FormControl(this.user.restaurants[0].phoneNumber),websiteAddress:new FormControl(this.user.restaurants[0].websiteAddress)});
     if(this.user.restaurants[0].testingEvents[0]){
     if(this.user.restaurants[0].testingEvents[0].testingEventName){
       

@@ -14,6 +14,9 @@ export const getUser = `query GetUser($id: ID!) {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         tastingEvents {
           items {
@@ -69,6 +72,9 @@ export const getRestaurant = `query GetRestaurant($id: ID!) {
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -108,6 +114,9 @@ export const listRestaurants = `query ListRestaurants(
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -121,6 +130,23 @@ export const listRestaurants = `query ListRestaurants(
         isRestaurantOwnser
       }
       tastingEvents {
+        items{
+          id
+    testingEventName
+    eventStartDate
+    eventStartTime,
+    eventMenus {
+      items {
+        id
+        menuPicture
+        menuPrice
+      }
+      nextToken
+    }
+    eventEndDate
+    eventEndTime
+        }
+    
         nextToken
       }
     }
@@ -140,6 +166,9 @@ export const getTestingEvent = `query GetTestingEvent($id: ID!) {
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -184,6 +213,9 @@ export const listTestingEvents = `query ListTestingEvents(
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -213,6 +245,9 @@ export const getEventMenu = `query GetEventMenu($id: ID!) {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode

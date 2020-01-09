@@ -8,5 +8,8 @@ export class Restaurant{
   state:string;
   zipcode:string;
   country:string;
-  public testingEvents?: [TestingEvent]
+  websiteAddress:string
+  restaurantName:string
+  phoneNumber:string
+  public testingEvents?: TestingEvent[]
 }

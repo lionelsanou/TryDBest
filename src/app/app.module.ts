@@ -13,12 +13,14 @@ import { DinnerProfileComponent } from './dinner-profile/dinner-profile.componen
 import { SearchPageComponent } from './search-page/search-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
+
+ 
 import {AuthService} from 'src/AuthService';
 import {DataService} from 'src/DataService';
 import {AuthGuard} from './auth.guard';
 import { NavigationbarComponent } from './navigation/navigation.component';
-
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 
 
@@ -40,7 +42,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
       OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+  
+   
+   
   ],
   providers: [DataService,AmplifyService,AuthGuard],
   bootstrap: [AppComponent]

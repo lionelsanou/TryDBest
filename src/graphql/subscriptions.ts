@@ -14,6 +14,9 @@ export const onCreateUser = `subscription OnCreateUser {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -37,6 +40,9 @@ export const onUpdateUser = `subscription OnUpdateUser {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -60,6 +66,9 @@ export const onDeleteUser = `subscription OnDeleteUser {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -75,6 +84,9 @@ export const onCreateRestaurant = `subscription OnCreateRestaurant {
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -109,6 +121,9 @@ export const onUpdateRestaurant = `subscription OnUpdateRestaurant {
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -143,6 +158,9 @@ export const onDeleteRestaurant = `subscription OnDeleteRestaurant {
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -184,6 +202,9 @@ export const onCreateTestingEvent = `subscription OnCreateTestingEvent {
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -223,6 +244,9 @@ export const onUpdateTestingEvent = `subscription OnUpdateTestingEvent {
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -262,6 +286,9 @@ export const onDeleteTestingEvent = `subscription OnDeleteTestingEvent {
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -305,6 +332,9 @@ export const onCreateEventMenu = `subscription OnCreateEventMenu {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -333,6 +363,9 @@ export const onUpdateEventMenu = `subscription OnUpdateEventMenu {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -361,6 +394,9 @@ export const onDeleteEventMenu = `subscription OnDeleteEventMenu {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode

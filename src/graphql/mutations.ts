@@ -14,6 +14,9 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -37,6 +40,9 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -60,6 +66,9 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -75,6 +84,9 @@ export const createRestaurant = `mutation CreateRestaurant($input: CreateRestaur
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -109,6 +121,9 @@ export const updateRestaurant = `mutation UpdateRestaurant($input: UpdateRestaur
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -143,6 +158,9 @@ export const deleteRestaurant = `mutation DeleteRestaurant($input: DeleteRestaur
     id
     addressLine1
     addressLine2
+    websiteAddress
+    phoneNumber
+    restaurantName
     city
     state
     zipcode
@@ -184,6 +202,9 @@ export const createTestingEvent = `mutation CreateTestingEvent($input: CreateTes
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -223,6 +244,9 @@ export const updateTestingEvent = `mutation UpdateTestingEvent($input: UpdateTes
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -262,6 +286,9 @@ export const deleteTestingEvent = `mutation DeleteTestingEvent($input: DeleteTes
       id
       addressLine1
       addressLine2
+      websiteAddress
+      phoneNumber
+      restaurantName
       city
       state
       zipcode
@@ -305,6 +332,9 @@ export const createEventMenu = `mutation CreateEventMenu($input: CreateEventMenu
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -333,6 +363,9 @@ export const updateEventMenu = `mutation UpdateEventMenu($input: UpdateEventMenu
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode
@@ -361,6 +394,9 @@ export const deleteEventMenu = `mutation DeleteEventMenu($input: DeleteEventMenu
         id
         addressLine1
         addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
         city
         state
         zipcode

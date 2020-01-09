@@ -11,6 +11,9 @@ type Restaurant @model {
   id: ID!
   addressLine1: String
   addressLine2: String
+  websiteAddress:String
+  phoneNumber:String
+  restaurantName:String
   city: String
   state:String
   zipcode:String

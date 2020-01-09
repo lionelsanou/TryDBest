@@ -33,9 +33,10 @@ export class AuthComponent implements OnInit {
         const oneTodo = API.graphql(graphqlOperation(queries.getUser, { id: authState.user.username }));
         oneTodo.then(res=>{
           console.log(" GraphQL Response "+JSON.stringify(res));
+          let restos:any=[];
           if(res.data.getUser!=null && res.data.getUser.restaurants.items.length != 0){
             const events:TestingEvent=null;
-            let restos:any=[];          
+                      
             for(let myRestaurant of res.data.getUser.restaurants.items){
               let testings:any=[];
               let menus:any=[];
@@ -64,15 +65,19 @@ export class AuthComponent implements OnInit {
               }
             }
               restos.push({
+                id:myRestaurant["id"],
                 addressLine1:myRestaurant["addressLine1"],
                 addressLine2:myRestaurant["addressLine2"],
                 city:myRestaurant["city"],
+                restaurantName:myRestaurant["restaurantName"],
+                phoneNumber:myRestaurant["phoneNumber"],
+                websiteAddress:myRestaurant["websiteAddress"],
                 state:myRestaurant["state"],
                 zipcode:myRestaurant["zipcode"],
                 country:myRestaurant["country"],
                 testingEvents:testings,
                 
-              })
+              });
             }
 
             console.log("the restos are  "+JSON.stringify(restos));
@@ -100,21 +105,35 @@ export class AuthComponent implements OnInit {
             }
           
         }else if(res.data.getUser!=null && res.data.getUser.restaurants.items.length==0){
-          this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:{addressLine1:"",
+          restos.push({
+            addressLine1:"",
             addressLine2:"",
             city:"",
+            restaurantName:"",
+            phoneNumber:"",
+            websiteAddress:"",
             state:"",
             zipcode:"",
-            country:""
-          }};
+            country:"",
+            testingEvents:"",
+            
+          });
+          this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:restos};
         }else{
-          this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:"",lastname:"",restaurants:{addressLine1:"",
+          restos.push({
+            addressLine1:"",
             addressLine2:"",
             city:"",
             state:"",
+            restaurantName:"",
+            phoneNumber:"",
+            websiteAddress:"",
             zipcode:"",
-            country:""
-          }};
+            country:"",
+            testingEvents:"",
+            
+          });
+          this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:"",lastname:"",restaurants:restos};
         }
           
           console.log("AuthService user "+JSON.stringify(this.user));

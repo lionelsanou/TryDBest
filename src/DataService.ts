@@ -23,6 +23,8 @@ export class DataService{
         console.log("DataService : Value of User Object "+JSON.stringify(this.user));
     }
     public async saveAddress(address:any):Promise<void>{
+        console.log("Adding Restaurant to Restaurant Object"+JSON.stringify(this.user));
+        console.log("Adding Restaurant to Restaurant Object"+JSON.stringify(this.user.restaurants));
         this.user.restaurants.push(address);
     }
     public getUser():User{

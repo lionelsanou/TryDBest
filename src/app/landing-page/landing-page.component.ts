@@ -9,7 +9,7 @@ import {Router, RouterEvent} from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   constructor(public router:Router) { }
-
+  isLoggedIn:boolean;
   ngOnInit() {
   }
 
