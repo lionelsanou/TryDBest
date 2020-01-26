@@ -1,12 +1,23 @@
 <app-navigationbar [userIsLoggedIn]="isLoggedIn"></app-navigationbar>
 
     <div class="container">
-          
+            <br/>
+            <p>Filter Page</p>
             <hr>
-            
+            <div class="row">
+                <div class="col-md-6 col-lg-offset-4">
+            <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="search by restaurant name">
+            </div>
+        </div>
+    </div>  
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Advance Search
+    </button> 
+    <div class="collapse" id="collapseExample">
             <div class="row">
                 <aside class="col-sm-4">
-            <p>Filter</p>
+            <p>&nbsp;</p>
             
             
             <div class="card">
@@ -122,6 +133,7 @@
             
                 </aside> <!-- col.// -->
             </div> <!-- row.// -->
+            </div>
             
             </div> 
             <!--container end.//-->
@@ -145,10 +157,12 @@
             <div class="row">
               
 
-                    <div  *ngFor="let restaurant of restaurants" class="col-md-4 featured-responsive">
-                            <div class="featured-place-wrap">
-                                <a href="detail.html">
-                                    <img src="assets/images/featured3.jpg" class="img-fluid" alt="#">
+                    <div  *ngFor="let restaurant of restaurants | restaurantFilter:searchTerm ;let i =index" class="col-md-4 featured-responsive">
+                            <div *ngIf="restaurant.restaurantMenus.length!=0"> 
+                        <div class="featured-place-wrap">
+                                <a [routerLink]="" (click)="visitMenuPage(i)">
+                                        
+                                    <img height="42" width="42" src="{{imagepath+restaurant.restaurantMenus[0].menuPicture||'assets/images/featured3.jpg'}}" class="img-fluid" alt="#">
                                     <span class="featured-rating">3.2</span>
                                     <div class="featured-title-box">
                                         <h6>{{restaurant.restaurantName}}</h6>
@@ -156,14 +170,6 @@
                                         <span>• </span>
                                         <p>3 Reviews</p>
                                         <span> • </span>
-                                        <h6>Event Name : {{restaurant.testingEvents[0].testingEventName}}</h6>
-                                        <p>
-                                            <span>Tasting Event Start Date</span> : {{restaurant.testingEvents[0].eventStartDate | date:'medium'}}
-                                        </p>
-                                        <p>
-                                                <span>Tasting Event Start Date</span> : {{restaurant.testingEvents[0].eventEndDate | date:'medium'}}
-                                            </p>
-
                                         <ul>
                                             <li>
                                                 <span class="icon-location-pin"></span>
@@ -180,12 +186,13 @@
             
                                         </ul>
                                         <div class="bottom-icons">
-                                            <div class="open-now">OPEN NOW</div>
+                                            <div class="open-now">See Menu</div>
                                             <span class="ti-heart"></span>
                                             <span class="ti-bookmark"></span>
                                         </div>
                                     </div>
                                 </a>
+                            </div>
                             </div>
                         </div>
 

@@ -1,4 +1,5 @@
 import { TestingEvent } from './testingEvent';
+import { RestaurantMenu } from './RestaurantMenu';
 
 export class Restaurant{
   id:string;
@@ -12,4 +13,5 @@ export class Restaurant{
   restaurantName:string
   phoneNumber:string
   public testingEvents?: TestingEvent[]
+  restaurantMenus:RestaurantMenu[]
 }

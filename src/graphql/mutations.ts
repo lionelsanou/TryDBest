@@ -102,14 +102,15 @@ export const createRestaurant = `mutation CreateRestaurant($input: CreateRestaur
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
@@ -139,14 +140,15 @@ export const updateRestaurant = `mutation UpdateRestaurant($input: UpdateRestaur
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
@@ -176,28 +178,30 @@ export const deleteRestaurant = `mutation DeleteRestaurant($input: DeleteRestaur
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
   }
 }
 `;
-export const createTestingEvent = `mutation CreateTestingEvent($input: CreateTestingEventInput!) {
-  createTestingEvent(input: $input) {
+export const createRestaurantMenu = `mutation CreateRestaurantMenu($input: CreateRestaurantMenuInput!) {
+  createRestaurantMenu(input: $input) {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -217,29 +221,22 @@ export const createTestingEvent = `mutation CreateTestingEvent($input: CreateTes
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
+      RestaurantMenus {
         nextToken
       }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
     }
   }
 }
 `;
-export const updateTestingEvent = `mutation UpdateTestingEvent($input: UpdateTestingEventInput!) {
-  updateTestingEvent(input: $input) {
+export const updateRestaurantMenu = `mutation UpdateRestaurantMenu($input: UpdateRestaurantMenuInput!) {
+  updateRestaurantMenu(input: $input) {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -259,29 +256,22 @@ export const updateTestingEvent = `mutation UpdateTestingEvent($input: UpdateTes
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
+      RestaurantMenus {
         nextToken
       }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
     }
   }
 }
 `;
-export const deleteTestingEvent = `mutation DeleteTestingEvent($input: DeleteTestingEventInput!) {
-  deleteTestingEvent(input: $input) {
+export const deleteRestaurantMenu = `mutation DeleteRestaurantMenu($input: DeleteRestaurantMenuInput!) {
+  deleteRestaurantMenu(input: $input) {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -301,108 +291,7 @@ export const deleteTestingEvent = `mutation DeleteTestingEvent($input: DeleteTes
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
-        nextToken
-      }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createEventMenu = `mutation CreateEventMenu($input: CreateEventMenuInput!) {
-  createEventMenu(input: $input) {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const updateEventMenu = `mutation UpdateEventMenu($input: UpdateEventMenuInput!) {
-  updateEventMenu(input: $input) {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const deleteEventMenu = `mutation DeleteEventMenu($input: DeleteEventMenuInput!) {
-  deleteEventMenu(input: $input) {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
+      RestaurantMenus {
         nextToken
       }
     }

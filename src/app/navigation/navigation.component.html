@@ -1,48 +1,90 @@
-<nav class="navbar navbar-dark bg-secondary">
-    <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="#">TryDBest</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Analysis<span class="sr-only">(current)</span></a>
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+        href="javascript:void(0);" onclick="openNav()">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4">
+        <i class="fa fa-home w3-margin-right"></i>TryDBest</a>
+      
+        <div *ngIf="userIsLoggedIn">
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News">
+        <i class="fa fa-globe"></i>
+      </a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Profile">
+        <i routerLink="/auth" class="fa fa-user"></i>
+      </a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages">
+        <i class="fa fa-envelope"></i>
+      </a>
+      <div class="w3-dropdown-hover w3-hide-small">
+        <button class="w3-button w3-padding-large" title="Notifications">
+          <i class="fa fa-bell"></i>
+          <span class="w3-badge w3-right w3-small w3-green">3</span>
+        </button>
+        <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+          <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+          <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+          <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+        </div>
+      </div>
+      </div>
+             
+            <div *ngIf="!userIsLoggedIn">
+                <li class="w3-bar-item w3-button w3-right w3-padding-large w3-hover-white">
+                  <a class="nav-link" routerLink="/login">Login | SignUp<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Restaurants
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </li>
-                <div *ngIf="!userIsLoggedIn">
-                    <li class="nav-item active">
-                      <a class="nav-link" routerLink="/login">Login | SignUp<span class="sr-only">(current)</span></a>
-                    </li>
-                </div>
-                <div *ngIf="userIsLoggedIn">
-                  
-                  
-                    <li class="nav-item active">
-        
-                      <a class="nav-link" routerLink="/userprofile">Profile</a>
-                    </li>
-                </div>
-                <div *ngIf="userIsLoggedIn">
-                  
-                  
-                    <li class="nav-item active">
-        
-                      <a class="nav-link" (click)="logout()">Logout</a>
-                    </li>
-                </div>
-              </ul>
             </div>
-          </nav>
-</nav>
+            <div *ngIf="userIsLoggedIn">
+            <li class="w3-bar-item w3-hide-small w3-button w3-right w3-padding-large w3-hover-white">
+
+              <a class="nav-link" (click)="logout()">Logout</a>
+            </li>
+          </div>
+       
+    </div>
+  </div>
+
+
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+      <div *ngIf="userIsLoggedIn">
+      <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+      <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+        <i class="fa fa-globe"> Profile</i>
+      </a>
+      <a routerLink="/auth" class="w3-bar-item w3-button  w3-padding-large w3-hover-white">
+        <i  class="fa fa-user"> Account Settings</i>
+      </a>
+      <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+        <i class="fa fa-envelope"> Messages</i>
+      </a>
+     
+      <div class="w3-dropdown-hover">
+        <button class="w3-button w3-padding-large" title="Notifications">
+          <i class="fa fa-bell"></i>
+          <span class="w3-badge w3-right w3-small w3-green">3</span>
+        </button>
+        <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+          <a routerLink="/auth" class="w3-bar-item w3-button">One new friend request</a>
+          <a routerLink="/auth" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+          <a routerLink="/auth" class="w3-bar-item w3-button">Jane likes your post</a>
+        </div>
+      </div>
+      <a routerLink="/auth" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+        <img [src]="url" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+      </a>
+      </div>
+      <div *ngIf="!userIsLoggedIn">
+          <a  routerLink="/login" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+            Login | SignUp
+          </a>
+      </div>
+      <div *ngIf="userIsLoggedIn">
+      <a (click)="logout()" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+          Logout
+      </a>
+    </div>
+    </div>
+    

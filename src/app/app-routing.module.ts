@@ -7,6 +7,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 import {AuthGuard} from './auth.guard';
+import { MenuPageComponent } from './menu-page/menu-page.component';
 
 
 const routes: Routes = [
@@ -14,8 +15,9 @@ const routes: Routes = [
   {path:"login",component:AuthComponent},
   {path:"owner",component:OwnerProfileComponent,canActivate:[AuthGuard]},
   {path:"dinner",component:DinnerProfileComponent,canActivate:[AuthGuard]},
-  {path:"search",component:SearchPageComponent},
+  {path:"search",component:SearchPageComponent,canActivate:[AuthGuard]},
   {path:"landing",component:LandingPageComponent},
+  {path:"menupage",component:MenuPageComponent,canActivate:[AuthGuard]},
   {path:"**",component:LandingPageComponent}
 ];
 

@@ -2,13 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthService} from 'src/AuthService';
+import {AuthService} from 'src/app/auth.service';
 import {DataService} from 'src/DataService';
-import {TestingEvent} from 'src/app/models/TestingEvent';
+
 
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import * as queries from 'src/graphql/queries';
 import { Restaurant } from '../models/restaurant';
+ 
 
 @Component({
   selector: 'app-search-page',
@@ -18,38 +19,39 @@ import { Restaurant } from '../models/restaurant';
 export class SearchPageComponent implements OnInit {
   restaurants:any=[];
   isLoggedIn:boolean;
-  constructor() { 
+  searchTerm:string;
+  imagepath:string="https://trydbest53f23423bbfe40a68e9e755f4ceda094-dev.s3.amazonaws.com/public/";
+  constructor(private auth:AuthService,private router:Router,private dataService:DataService) { 
 
     const oneTodo = API.graphql(graphqlOperation(queries.listRestaurants));
     oneTodo.then(response=>{
       console.log(JSON.stringify(response));
       for(let myRestaurant of response.data.listRestaurants.items){
-        let testings:any=[];
-        let menus:any=[];
+        let restaurantMenus:any=[];
         console.log("Trying something out 1 "+JSON.stringify( myRestaurant["addressLine1"]));
-        if(myRestaurant["tastingEvents"]){           
-        for(let tastes of myRestaurant["tastingEvents"].items ){               
-          if(tastes["eventMenus"]){              
-            for(let myMenu of tastes["eventMenus"].items ){
-              console.log("Trying something out 3"+JSON.stringify(myMenu));
-              menus.push({
-                id:myMenu["id"],
-                menuPicture:myMenu["menuPicture"], 
-                menuPrice:myMenu["menuPrice"]
-              })
+        if(myRestaurant["RestaurantMenus"]){
+          if(myRestaurant["RestaurantMenus"].items.length!=0){
+            for(let restaurantMenu of myRestaurant["RestaurantMenus"].items){
+              console.log("The world famous menu is "+JSON.stringify(restaurantMenu));
+              restaurantMenus.push({
+                id:restaurantMenu.id,
+                menuType:restaurantMenu.menuType,
+                menuPortion:restaurantMenu.menuPortion,
+                 menuPrice:restaurantMenu.menuPrice,
+                 menuPicture:restaurantMenu.menuPicture,
+                 menuName:restaurantMenu.menuName,
+                 menuDescription:restaurantMenu.menuDescription
 
+              })
             }
+
           }
-            console.log("Trying something out 2"+JSON.stringify(tastes));
-            testings.push({
-              testingEventName:tastes["testingEventName"],
-              eventStartDate:tastes["eventStartDate"],
-              eventEndDate:tastes["eventEndDate"],
-              id:tastes["id"],
-              eventMenus:menus
-            })
+
         }
-      }
+
+
+
+
         this.restaurants.push({
           id:myRestaurant["id"],
           addressLine1:myRestaurant["addressLine1"],
@@ -61,7 +63,8 @@ export class SearchPageComponent implements OnInit {
           state:myRestaurant["state"],
           zipcode:myRestaurant["zipcode"],
           country:myRestaurant["country"],
-          testingEvents:testings,
+          restaurantMenus:restaurantMenus
+          
           
           
         });
@@ -70,7 +73,20 @@ export class SearchPageComponent implements OnInit {
     })
   }
 
+  visitMenuPage(index){
+    console.log("The restaurant selected index is "+JSON.stringify(index));
+    console.log("The restaurant selected is is "+JSON.stringify(this.restaurants[index]));
+    this.dataService.user.selectedRestaurantId=this.restaurants[index].id;
+    console.log("The selected restaurant id is "+this.dataService.user.selectedRestaurantId);
+    this.router.navigate(['/menupage']);
+  }
+
   ngOnInit() {
+    this.auth.isUserLoggin().then(response=>{
+      if(response){
+        this.isLoggedIn=true;
+      }
+    });
   }
 
 }

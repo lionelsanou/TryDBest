@@ -102,14 +102,15 @@ export const onCreateRestaurant = `subscription OnCreateRestaurant {
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
@@ -139,14 +140,15 @@ export const onUpdateRestaurant = `subscription OnUpdateRestaurant {
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
@@ -176,28 +178,30 @@ export const onDeleteRestaurant = `subscription OnDeleteRestaurant {
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
   }
 }
 `;
-export const onCreateTestingEvent = `subscription OnCreateTestingEvent {
-  onCreateTestingEvent {
+export const onCreateRestaurantMenu = `subscription OnCreateRestaurantMenu {
+  onCreateRestaurantMenu {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -217,29 +221,22 @@ export const onCreateTestingEvent = `subscription OnCreateTestingEvent {
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
+      RestaurantMenus {
         nextToken
       }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
     }
   }
 }
 `;
-export const onUpdateTestingEvent = `subscription OnUpdateTestingEvent {
-  onUpdateTestingEvent {
+export const onUpdateRestaurantMenu = `subscription OnUpdateRestaurantMenu {
+  onUpdateRestaurantMenu {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -259,29 +256,22 @@ export const onUpdateTestingEvent = `subscription OnUpdateTestingEvent {
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
+      RestaurantMenus {
         nextToken
       }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
     }
   }
 }
 `;
-export const onDeleteTestingEvent = `subscription OnDeleteTestingEvent {
-  onDeleteTestingEvent {
+export const onDeleteRestaurantMenu = `subscription OnDeleteRestaurantMenu {
+  onDeleteRestaurantMenu {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -301,108 +291,7 @@ export const onDeleteTestingEvent = `subscription OnDeleteTestingEvent {
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
-        nextToken
-      }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateEventMenu = `subscription OnCreateEventMenu {
-  onCreateEventMenu {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const onUpdateEventMenu = `subscription OnUpdateEventMenu {
-  onUpdateEventMenu {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const onDeleteEventMenu = `subscription OnDeleteEventMenu {
-  onDeleteEventMenu {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
+      RestaurantMenus {
         nextToken
       }
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, RouterEvent} from '@angular/router';
+import {AuthService} from 'src/app/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,9 +9,14 @@ import {Router, RouterEvent} from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor(public router:Router) { }
+  constructor(public router:Router,private auth:AuthService) { }
   isLoggedIn:boolean;
   ngOnInit() {
+    this.auth.isUserLoggin().then(response=>{
+      if(response){
+        this.isLoggedIn=true;
+      }
+    });
   }
 
   search(){

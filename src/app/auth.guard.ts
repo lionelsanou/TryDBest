@@ -17,11 +17,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       })
       .then((user)=>{
         if(user){
+          //this.router.navigate(['/auth']);
           resolve(true);
         }
       })
       .catch(()=>{
-        this.router.navigate(['/search']);
+        this.router.navigate(['/auth']);
         resolve(false);
       })
     });

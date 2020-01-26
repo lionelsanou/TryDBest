@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthService} from 'src/AuthService';
+//import {AuthService} from 'src/AuthService';
 import {DataService} from 'src/DataService';
 import {TestingEvent} from 'src/app/models/TestingEvent';
 
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import * as queries from 'src/graphql/queries';
 import { Restaurant } from '../models/restaurant';
+import {AuthService} from 'src/app/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,8 +19,8 @@ export class AuthComponent implements OnInit {
   usernameAttributes = "email";
   signIn:boolean;
   user:any;
-  constructor(public dataService:DataService,private amplifyServiceApi:AmplifyService,private router:Router) {
-    console.log("Welcome");
+  constructor(public authService:AuthService,public dataService:DataService,private amplifyServiceApi:AmplifyService,private router:Router) {
+    console.log("Welcome"); 
     let signIn=true;
     let userAuth=null;
     userAuth= this.amplifyServiceApi.authStateChange$;
@@ -40,30 +41,30 @@ export class AuthComponent implements OnInit {
             for(let myRestaurant of res.data.getUser.restaurants.items){
               let testings:any=[];
               let menus:any=[];
+              let restaurantMenus:any=[];
               console.log("Trying something out 1 "+JSON.stringify( myRestaurant["addressLine1"]));
-              if(myRestaurant["tastingEvents"]){           
-              for(let tastes of myRestaurant["tastingEvents"].items ){               
-                if(tastes["eventMenus"]){              
-                  for(let myMenu of tastes["eventMenus"].items ){
-                    console.log("Trying something out 3"+JSON.stringify(myMenu));
-                    menus.push({
-                      id:myMenu["id"],
-                      menuPicture:myMenu["menuPicture"], 
-                      menuPrice:myMenu["menuPrice"]
-                    })
+              
+              console.log("the restaurant event menus"+JSON.stringify(myRestaurant["RestaurantMenus"]));
+              if(myRestaurant["RestaurantMenus"]){
+                if(myRestaurant["RestaurantMenus"].items.length!=0){
+                  for(let restaurantMenu of myRestaurant["RestaurantMenus"].items){
+                    console.log("The world famous menu is "+JSON.stringify(restaurantMenu));
+                    restaurantMenus.push({
+                      id:restaurantMenu.id,
+                      menuType:restaurantMenu.menuType,
+                      menuPortion:restaurantMenu.menuPortion,
+                       menuPrice:restaurantMenu.menuPrice,
+                       menuPicture:restaurantMenu.menuPicture,
+                       menuName:restaurantMenu.menuName,
+                       menuDescription:restaurantMenu.menuDescription
 
+                    })
                   }
+
                 }
-                  console.log("Trying something out 2"+JSON.stringify(tastes));
-                  testings.push({
-                    testingEventName:tastes["testingEventName"],
-                    eventStartDate:tastes["eventStartDate"],
-                    eventEndDate:tastes["eventEndDate"],
-                    id:tastes["id"],
-                    eventMenus:menus
-                  })
+
               }
-            }
+             
               restos.push({
                 id:myRestaurant["id"],
                 addressLine1:myRestaurant["addressLine1"],
@@ -75,34 +76,25 @@ export class AuthComponent implements OnInit {
                 state:myRestaurant["state"],
                 zipcode:myRestaurant["zipcode"],
                 country:myRestaurant["country"],
-                testingEvents:testings,
+                testingEvents:"",
+                restaurantMenus:restaurantMenus
                 
               });
             }
 
             console.log("the restos are  "+JSON.stringify(restos));
 
-            if(JSON.stringify(res.data.getUser.restaurants.items[0].tastingEvents.items)=="[]"){
-              console.log("There is no tasting event ");
             
-              this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:restos};
-            }else{
-
               
-                //Let's check and see and if Tasting event menu was set
-                if(JSON.stringify(res.data.getUser.restaurants.items[0].tastingEvents.items[0].eventMenus.items)=="[]"){
-                  console.log("The Tasting Event was set, but no event menu"+JSON.stringify(res.data.getUser.restaurants.items[0].tastingEvents));
-                  this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:restos};
-                
-                }else{
-                  console.log(" Event Menu was set !!!!!!!!!!!!!!!!!!!")
+               
+                 // console.log(" Event Menu was set !!!!!!!!!!!!!!!!!!!")
               this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:restos};
             
                  
                  
-                }
+                
             
-            }
+            
           
         }else if(res.data.getUser!=null && res.data.getUser.restaurants.items.length==0){
           restos.push({
@@ -116,6 +108,7 @@ export class AuthComponent implements OnInit {
             zipcode:"",
             country:"",
             testingEvents:"",
+            restaurantMenus:[]
             
           });
           this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:res.data.getUser.firstname,lastname:res.data.getUser.lastname,restaurants:restos};
@@ -131,6 +124,7 @@ export class AuthComponent implements OnInit {
             zipcode:"",
             country:"",
             testingEvents:"",
+            restaurantMenus:[]
             
           });
           this.user={id:authState.user.username,email:authState.user.attributes.email,firstname:"",lastname:"",restaurants:restos};
@@ -152,10 +146,11 @@ export class AuthComponent implements OnInit {
       }
     });
   
-    
+     
    }
 
     ngOnInit() {
+     
    
   }
 

@@ -1,4 +1,5 @@
 import { Restaurant } from './restaurant';
+import { RestaurantMenu } from './RestaurantMenu';
 
 export class User {
     public id:string
@@ -8,6 +9,8 @@ export class User {
     public profilePicture?:string
     public isRestaurantOwnser?:Boolean
     public restaurants?: Restaurant[]
+    public selectedRestaurantId?:string;
+    public cartItems?:RestaurantMenu[]=[];
     constructor(){
        
     }

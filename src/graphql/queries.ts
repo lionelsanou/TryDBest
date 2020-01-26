@@ -16,27 +16,20 @@ export const getUser = `query GetUser($id: ID!) {
         addressLine2
         websiteAddress
         phoneNumber
-        restaurantName
-        city
-        tastingEvents {
+        RestaurantMenus {
           items {
             id
-            testingEventName
-            eventStartDate
-            eventStartTime
-            eventEndDate
-            eventMenus {
-              items {
-                id
-                menuPicture
-                menuPrice
-              }
-              nextToken
-            }
-            eventEndTime
+            menuType
+            menuPortion
+            menuName
+            menuDescription
+            menuPrice
+            menuPicture
           }
           nextToken
         }
+        restaurantName
+        city
         state
         zipcode
         country
@@ -90,14 +83,15 @@ export const getRestaurant = `query GetRestaurant($id: ID!) {
         nextToken
       }
     }
-    tastingEvents {
+    RestaurantMenus {
       items {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        menuType
+        menuPortion
+        menuName
+        menuDescription
+        menuPrice
+        menuPicture
       }
       nextToken
     }
@@ -117,6 +111,18 @@ export const listRestaurants = `query ListRestaurants(
       websiteAddress
       phoneNumber
       restaurantName
+      RestaurantMenus {
+        items {
+          id
+          menuType
+          menuPortion
+          menuName
+          menuDescription
+          menuPrice
+          menuPicture
+        }
+        nextToken
+      }
       city
       state
       zipcode
@@ -129,24 +135,7 @@ export const listRestaurants = `query ListRestaurants(
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
-        items{
-          id
-    testingEventName
-    eventStartDate
-    eventStartTime,
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
-    }
-    eventEndDate
-    eventEndTime
-        }
-    
+      RestaurantMenus {
         nextToken
       }
     }
@@ -154,14 +143,15 @@ export const listRestaurants = `query ListRestaurants(
   }
 }
 `;
-export const getTestingEvent = `query GetTestingEvent($id: ID!) {
-  getTestingEvent(id: $id) {
+export const getRestaurantMenu = `query GetRestaurantMenu($id: ID!) {
+  getRestaurantMenu(id: $id) {
     id
-    testingEventName
-    eventStartDate
-    eventStartTime
-    eventEndDate
-    eventEndTime
+    menuType
+    menuPortion
+    menuName
+    menuDescription
+    menuPrice
+    menuPicture
     restaurant {
       id
       addressLine1
@@ -181,102 +171,38 @@ export const getTestingEvent = `query GetTestingEvent($id: ID!) {
         profilePicture
         isRestaurantOwnser
       }
-      tastingEvents {
+      RestaurantMenus {
         nextToken
       }
-    }
-    eventMenus {
-      items {
-        id
-        menuPicture
-        menuPrice
-      }
-      nextToken
     }
   }
 }
 `;
-export const listTestingEvents = `query ListTestingEvents(
-  $filter: ModelTestingEventFilterInput
+export const listRestaurantMenus = `query ListRestaurantMenus(
+  $filter: ModelRestaurantMenuFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTestingEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listRestaurantMenus(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getEventMenu = `query GetEventMenu($id: ID!) {
-  getEventMenu(id: $id) {
-    id
-    menuPicture
-    menuPrice
-    testingEvent {
-      id
-      testingEventName
-      eventStartDate
-      eventStartTime
-      eventEndDate
-      eventEndTime
-      restaurant {
-        id
-        addressLine1
-        addressLine2
-        websiteAddress
-        phoneNumber
-        restaurantName
-        city
-        state
-        zipcode
-        country
-      }
-      eventMenus {
-        nextToken
-      }
-    }
-  }
-}
-`;
-export const listEventMenus = `query ListEventMenus(
-  $filter: ModelEventMenuFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEventMenus(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      menuPicture
+      menuType
+      menuPortion
+      menuName
+      menuDescription
       menuPrice
-      testingEvent {
+      menuPicture
+      restaurant {
         id
-        testingEventName
-        eventStartDate
-        eventStartTime
-        eventEndDate
-        eventEndTime
+        addressLine1
+        addressLine2
+        websiteAddress
+        phoneNumber
+        restaurantName
+        city
+        state
+        zipcode
+        country
       }
     }
     nextToken

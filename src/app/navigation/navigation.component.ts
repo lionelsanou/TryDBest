@@ -17,7 +17,7 @@ export class NavigationbarComponent implements OnInit {
   logout(){
     Auth.signOut({global:true})
     .then(data=>{
-      this.router.navigate(['/search']);
+      this.router.navigate(['/landing']);
     })
     .catch(error=>{
       console.log(error);

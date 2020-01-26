@@ -11,9 +11,9 @@
         <i class="fa fa-globe"></i>
       </a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings">
-        <i routerLink="/profile" class="fa fa-user"></i>
+        <i routerLink="/auth" class="fa fa-user"></i>
       </a>
-      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages">
+      <a routerLink="/auth" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages">
         <i class="fa fa-envelope"></i>
       </a>
       <div class="w3-dropdown-hover w3-hide-small">
@@ -22,14 +22,14 @@
           <span class="w3-badge w3-right w3-small w3-green">3</span>
         </button>
         <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-          <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-          <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-          <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+          <a routerLink="/auth" class="w3-bar-item w3-button">One new friend request</a>
+          <a routerLink="/auth" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+          <a routerLink="/auth" class="w3-bar-item w3-button">Jane likes your post</a>
         </div>
       </div>
       
                   
-            <li class="w3-bar-item w3-button w3-right w3-padding-large w3-hover-white">
+            <li class="w3-bar-item w3-hide-small w3-button w3-right w3-padding-large w3-hover-white">
 
               <a class="nav-link" (click)="logout()">Logout</a>
             </li>
@@ -40,29 +40,34 @@
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
   
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+    <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
       <i class="fa fa-globe"> Profile</i>
     </a>
-    <a class="w3-bar-item w3-button  w3-padding-large w3-hover-white">
-      <i routerLink="/profile" class="fa fa-user"> Account Settings</i>
+    <a routerLink="/auth" class="w3-bar-item w3-button  w3-padding-large w3-hover-white">
+      <i  class="fa fa-user"> Account Settings</i>
     </a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+    <a routerLink="/auth" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
       <i class="fa fa-envelope"> Messages</i>
     </a>
+   
     <div class="w3-dropdown-hover">
       <button class="w3-button w3-padding-large" title="Notifications">
         <i class="fa fa-bell"></i>
         <span class="w3-badge w3-right w3-small w3-green">3</span>
       </button>
       <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-        <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-        <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-        <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+        <a routerLink="/auth" class="w3-bar-item w3-button">One new friend request</a>
+        <a routerLink="/auth" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+        <a routerLink="/auth" class="w3-bar-item w3-button">Jane likes your post</a>
       </div>
     </div>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+    <a routerLink="/auth" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
       <img [src]="url" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+    </a>
+
+    <a (click)="logout()" class="w3-bar-item w3-button w3-padding-large w3-hover-white">
+        Logout
     </a>
   </div>
   
@@ -133,21 +138,15 @@
             <div id="Demo3" class="w3-show w3-container">
               <div class="w3-row-padding">
                 <br>
-                <div>
+                <div *ngFor="let restauMenu of  restaurantMenusForm">
                    <!-- Display Image -->
         <div style="width:100%" class="w3-margin-bottom">
-        <amplify-s3-image [path]="imageUrl" 
-        [options]="{'level': 'public'}" *ngIf="showPhoto">
+        <amplify-s3-image [path]="restauMenu.menuPicture" 
+        [options]="{'level': 'public'}" >
         </amplify-s3-image>
       </div>
                 </div>
-                <div class="">
-                    <div style="width:100%" class="w3-margin-bottom">
-                        <amplify-s3-image [path]="imageUrl" 
-                        [options]="{'level': 'public'}" *ngIf="showPhoto">
-                        </amplify-s3-image>
-                      </div>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -201,9 +200,10 @@
                             
                     </form>
             </div>
+            <div *ngIf="(!(userForm.get('firstname').value==='' || userForm.get('lastname').value==='' )&& !hideRestaurantDetails)">
         <div class="w3-container w3-card w3-white w3-round w3-margin">
           <br>
-  
+         
           <div id="address">
             <form [formGroup]="restaurantForm">
                 <div class="form-group">
@@ -227,6 +227,7 @@
                 <div class="form-group col-md-4">
                   <label for="inputState">State</label>
                   <select formControlName="state" class="form-control">
+                      <option value="">Select State</option>
                     <option *ngFor="let state of usStates" [ngValue]="state.name">{{state.name}}</option>
   
                   </select>
@@ -268,52 +269,197 @@
           
          
           
+        
         </div>
-
+        <div *ngIf="showListofMenus">
+        <div *ngFor="let restauMenu of  restaurantMenusForm;let i =index">
+        <div *ngIf="restauMenu.menuType==='Entree'">
         <div class="w3-container w3-card w3-white w3-round w3-margin">
-            <b>Schedule a Testing Event:</b>
+            <b>Restaurant  Entree Menus:</b>
+            <br/>
+            <amplify-s3-image [path]="restauMenu.menuPicture" 
+            [options]="{'level': 'public'}">
+            </amplify-s3-image>           
+            <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+            <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+          <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+          <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+            <br/>
+            <button class="pull-right btn btn-sm btn-warning" (click)="deleteMenu(i)">Delete</button>
+            <hr>
+            
+
+          </div>
+          </div>
+
+
+          <div *ngIf="restauMenu.menuType==='Appetizer'">
+              <div class="w3-container w3-card w3-white w3-round w3-margin">
+                  <b>Restaurant  Appetizer Menus:</b>
+                  <br/>
+                  <amplify-s3-image [path]="restauMenu.menuPicture" 
+                  [options]="{'level': 'public'}">
+                  </amplify-s3-image>           
+                  <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+                  <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+                <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+                <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+                  <br/>
+                  <button class="pull-right btn btn-sm btn-warning" (click)="deleteMenu(i)">Delete</button>
+                  <hr>
+                  
+      
+                </div>
+                </div>
+
+
+                <div *ngIf="restauMenu.menuType==='Dessert'">
+                    <div class="w3-container w3-card w3-white w3-round w3-margin">
+                        <b>Restaurant  Dessert Menus:</b>
+                        <br/>
+                        <amplify-s3-image [path]="restauMenu.menuPicture" 
+                        [options]="{'level': 'public'}">
+                        </amplify-s3-image>
+                        <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+                        <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+                      <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+                      <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+                        <br/>
+                        <button class="pull-right btn btn-sm btn-warning" (click)="deleteMenu(i)">Delete</button>
+                        <hr>
+                        
+            
+                      </div>
+                      </div>
+
+
+        </div>
+      </div>
+<div *ngIf="!this.noAddress" >
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+            <b>Add Restaurant Menus:</b>
+
             <br/>
             <br/>
-            <form #eventForm="ngForm" novalidate>
+        <div *ngIf="!showMenuAddMenu">
+            <button type="button" (click)="showAddMenuList()" class="btn btn-link">+ add a Menu</button>
+        </div>
+            <br/>
+            <div *ngIf="showMenuAddMenu">
+            <form [formGroup]="menuTypeForm" novalidate>
                 <div class="container">
 
                     <div class="row">
                         <div class="col-md-5">
                 <div class="form-group">
-                        <label for="firstname"><b>Tasting Event Name :</b></label>
-                        <input type="text" required  name="eventName" [(ngModel)]="eventName" placeholder="Enter Your Event Name">
-                        
+                        <label for="menuType"><b>Select Menu Type : &nbsp;</b></label>
+                        <select  class="btn btn-warning" formControlName="menuType">
+                            <option value="null" selected="selected">Select Menu Type</option>                           
+                            <option [ngValue]="menuType.name" *ngFor="let menuType of menuTypes">{{menuType.name}}</option>
+                          </select>
                        
                 </div>
+
+              
+
             </div>
           </div>
           <br/>
                     <div class="row">
                         <div class="col-md-5">
-                            <label>
-                                <b>Event Start Date and Time:</b>
-                                <input [(ngModel)]="selectedMoment1"
-                                name="selectedMoment1"
-                                [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1">
-                         <owl-date-time #dtPicker1></owl-date-time>
-                            </label>
+                          
+                            <div class="form-group">
+                                <label for="menuPortion"><b>Select Meal Portion : &nbsp;</b></label>
+                                <select  class="btn btn-info" formControlName="menuPortion">                           
+                                    <option value="null" selected="selected">Select Food Portion</option>    
+                                  <option [ngValue]="menuPortion.name" *ngFor="let menuPortion of menuPortions">{{menuPortion.name}}</option>
+                                  </select>
+                               
+                        </div>
+
+                       </div>
+
+                       
             </div>
-            <div class="col-md-2">                           </div>
-            <div class="col-md-5">
-                <label>
-                    <b>Event End Date and Time:</b>
-                    <input [(ngModel)]="selectedMoment2"
-                    name="selectedMoment2"
-           [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
-    <owl-date-time #dtPicker2></owl-date-time>
-                </label>
+            <div class="row">
+                <div class="col-md-5">
+                  
+                    <div class="form-group">
+                        <label for="menuPortion"><b>Enter Meal Name : &nbsp;</b></label>
+                        <input type="text" class="form-control" formControlName="mealName" placeholder="Enter Meal Name">
+                       
                 </div>
-            </div>
-            <br/>
-            <br/>
-     
-            <button type="submit"  (click)="saveEventDate()" class="btn btn-primary">Save</button> 
+
+               </div>
+
+               
+    </div>
+    <div class="row">
+        <div class="col-md-5">
           
+            <div class="form-group">
+                <label for="menuPortion"><b>Enter Meal Price : &nbsp;</b></label>
+                <input type="text" class="form-control" formControlName="mealPrice" placeholder="Enter Meal Price">
+               
+        </div>
+
+       </div>
+
+       
+</div>
+
+<br/>
+
+<div class="row">
+    <div class="col-md-5">
+      
+        <div class="form-group">
+            <label for="comment">Enter Meal Description:</label>
+            <textarea class="form-control"  formControlName="mealDescription" rows="5" id="mealDescription"></textarea>
+          </div> 
+
+   </div>
+
+   
+</div>
+
+
+
+
+
+
+
+
+
+            <br/>
+            <div class="row">
+                <div class="col-md-5">
+                  
+                    <div class="form-group">
+                        <label for="menuPortion"><b>Select Meal Picture : &nbsp;</b></label>
+                        <amplify-s3-image [path]="menuPicture" 
+        [options]="{'level': 'public'}" *ngIf="showMenuPicture">
+        </amplify-s3-image>
+      
+      <!-- Photo Picker -->
+        <amplify-photo-picker *ngIf="!showMenuPicture" 
+        path="image"[storageOptions]="{'level': 'public'}" (uploaded)="onMenuImageUploaded($event)">
+        </amplify-photo-picker>
+
+        <div class="w3-row-padding" style="margin:0 -16px">
+            <button type="button" class="btn btn-info" *ngIf="showMenuPicture" (click)="editImage()">Edit Picture</button>
+        </div>
+                       
+                </div>
+        
+               </div>
+        
+               
+        </div>
+            <br/>
+            <div *ngIf="showMenuPicture">
+            <button type="submit"  (click)="saveRestaurantMenu()" class="btn btn-primary">Create Menu</button> 
+          </div>
             &nbsp;
             <div *ngIf="showSpinnerEventDate" class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
@@ -324,71 +470,16 @@
                 
                 
         </form>
+        </div>
        
 
             
     </div>
+    </div>
+
+
   
-
-    <div class="w3-container w3-card w3-white w3-round w3-margin">
-        <b>Testing Event Gallery:</b>
-        <br/>
-        <br/>
-      
-
-            <div class="row">
-                <div class="col-md-5">
-        <div class="form-group">
-                <label for="firstname"><b>Dish Price :</b></label>
-                <input type="text" name="menuPrice" [(ngModel)]="menuPrice" placeholder="Enter the Price of the Dish">
-                
-               
-        </div>
-        </div>
-            </div>
-       
-
-        <!-- Display Image -->
-        <amplify-s3-image [path]="imageUrl" 
-        [options]="{'level': 'public'}" *ngIf="showPhoto">
-        </amplify-s3-image>
-      
-      <!-- Photo Picker -->
-        <amplify-photo-picker *ngIf="!showPhoto" 
-        path="image"[storageOptions]="{'level': 'public'}" (uploaded)="onImageUploaded($event)">
-        </amplify-photo-picker>
-
-        <div class="w3-row-padding" style="margin:0 -16px">
-            <button type="button" class="btn btn-info" *ngIf="showPhoto" (click)="editPhoto()">Edit</button>
-        </div>
-        <br/>
-        <br/>
-        <div *ngIf="showPhoto">
-            <button type="button" (click)="addImage2()" class="btn btn-link">+ add another image</button>
-        </div>
-
-        <div *ngIf="image2selection">
-              <!-- Display Image -->
-        <amplify-s3-image [path]="imageUrl2" 
-        [options]="{'level': 'public'}" *ngIf="showPhoto2">
-        </amplify-s3-image>
-      
-      <!-- Photo Picker -->
-        <amplify-photo-picker *ngIf="!showPhoto2" 
-        path="image"[storageOptions]="{'level': 'public'}" (uploaded)="onImageUploaded($event)">
-        </amplify-photo-picker>
-        </div>
-
-       
-        
-        
-        
-        
-   
-
-        
-</div>
-  
+  </div>
   
         <!-- End Middle Column -->
       </div>

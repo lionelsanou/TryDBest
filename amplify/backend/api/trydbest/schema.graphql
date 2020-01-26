@@ -1,4 +1,4 @@
-type User @model {
+type User @model @aws_api_key @aws_cognito_user_pools{
   id: ID! 
   firstname: String
   lastname: String
@@ -7,7 +7,7 @@ type User @model {
   isRestaurantOwnser:Boolean
   restaurants: [Restaurant] @connection(name: "UserRestaurants")
 }
-type Restaurant @model {
+type Restaurant @model @aws_api_key @aws_cognito_user_pools {
   id: ID!
   addressLine1: String
   addressLine2: String
@@ -19,22 +19,18 @@ type Restaurant @model {
   zipcode:String
   country:String
   user: User @connection(name: "UserRestaurants")
-  tastingEvents: [TestingEvent] @connection(name: "RestaurantTastingEvents")
-}
-type TestingEvent @model {
-  id: ID!
-  testingEventName:String
-  eventStartDate: String
-  eventStartTime:String
-  eventEndDate:String
-  eventEndTime:String
-  restaurant: Restaurant @connection(name: "RestaurantTastingEvents")
-  eventMenus:[EventMenu] @connection(name:"TastingEventMenus")
+  RestaurantMenus:[RestaurantMenu] @connection(name: "RestaurantMenus")
 }
 
-type EventMenu @model{
-  id:ID!
-  menuPicture:String
-  menuPrice:String
-  testingEvent:TestingEvent @connection(name:"TastingEventMenus")
+type RestaurantMenu @model @aws_api_key @aws_cognito_user_pools{
+  id: ID!
+  menuType:String,
+  menuPortion:String,
+  menuName:String,
+  menuDescription:String,
+  menuPrice:String,
+  menuPicture:String,
+  restaurant: Restaurant @connection(name: "RestaurantMenus")
+  
 }
+

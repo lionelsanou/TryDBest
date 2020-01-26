@@ -1,0 +1,183 @@
+<app-navigationbar [userIsLoggedIn]="isLoggedIn"></app-navigationbar>
+
+<br/>
+<br/>
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+        <!-- The Grid -->
+        <div class="w3-row">
+          <!-- Left Column -->
+          <div class="w3-col m3">
+            <!-- Profile -->
+            <div class="w3-card-4 w3-round w3-white">
+              <div class="w3-container">
+                <h4 class="w3-center">My Profile</h4>
+                <p class="w3-center">
+                       <b> {{restaurantInfo.restaurantName}}</b>
+                </p>
+                <hr>
+                <hr>
+              </div>
+            </div>
+            <br>
+      
+            <!-- Accordion -->
+            <div class="w3-card w3-round">
+              <div class="w3-white">
+                <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                  <i class="fa fa-home fa-fw w3-margin-right"></i>Restaurant Address</button>
+                <div id="Demo1" class="w3-show w3-container">
+                  <div>
+    
+                    
+                      <a class="btn btn-link"> 
+                          <div class="container">
+                              <div class="row">
+                                
+                                        <small class="text-secondary">{{restaurantInfo.addressLine1}}, {{restaurantInfo.state}}, {{restaurantInfo.zipcode}}</small>
+                                        
+                              </div>
+                              </div>
+    
+                      </a>
+                      <br/>
+                    </div>
+               
+                </div>
+                <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+                  <i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Orders</button>
+                <div id="Demo2" class="w3-show w3-container">
+                        <div *ngFor="let order of dataService.user.cartItems,let i=index">
+                                <small class="text-secondary">{{order.menuName}} : ${{order.menuPrice}}</small>
+                                <button class="btn btn-danger btn-sm" (click)="removeFromCart(i)">delete</button>
+                        </div>
+                        <br/>
+                        <hr>
+                        <small class="text-secondary">Total price : <span>${{total}}</span></small>
+                        <div *ngIf="dataService.user.cartItems.length>0">
+                                <button (click)="pay()" class="btn btn-primary btn-sm">Pay Total</button>
+                        </div>
+                        <br/>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <!-- End Left Column -->
+          </div>
+      
+          <!-- Middle Column -->
+          <div class="w3-col m7">
+                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                    <b>Shop Menu Items</b>
+                </div>
+
+            </div>
+          <div class="w3-col m7">
+            <div *ngFor="let restauMenu of  restaurantInfo.RestaurantMenus.items;let i =index">
+            <div *ngIf="restauMenu.menuType==='Entree'">
+            <div class="w3-container w3-card w3-white w3-round w3-margin">
+                <b>Restaurant  Entree Menus:</b>
+                <br/>
+                <amplify-s3-image [path]="restauMenu.menuPicture" 
+                [options]="{'level': 'public'}">
+                </amplify-s3-image>           
+                <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+                <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+              <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+              <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+                <br/>
+                <button class="pull-right btn btn-sm btn-warning" (click)="addToCart(i)">Add to Cart</button>
+                <hr>
+                
+    
+              </div>
+              </div>
+    
+    
+              <div *ngIf="restauMenu.menuType==='Appetizer'">
+                  <div class="w3-container w3-card w3-white w3-round w3-margin">
+                      <b>Restaurant  Appetizer Menus:</b>
+                      <br/>
+                      <amplify-s3-image [path]="restauMenu.menuPicture" 
+                      [options]="{'level': 'public'}">
+                      </amplify-s3-image>           
+                      <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+                      <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+                    <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+                    <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+                      <br/>
+                      <button class="pull-right btn btn-sm btn-warning" (click)="addToCart(i)">Add to Cart</button>
+                      <hr>
+                      
+          
+                    </div>
+                    </div>
+    
+    
+                    <div *ngIf="restauMenu.menuType==='Dessert'">
+                        <div class="w3-container w3-card w3-white w3-round w3-margin">
+                            <b>Restaurant  Dessert Menus:</b>
+                            <br/>
+                            <amplify-s3-image [path]="restauMenu.menuPicture" 
+                            [options]="{'level': 'public'}">
+                            </amplify-s3-image>
+                            <h6><b>Menu Name : {{restauMenu.menuName}}</b></h6>         
+                            <h6>Menu Portion : {{restauMenu.menuPortion}}</h6>
+                          <h6>Menu Price : {{restauMenu.menuPrice | currency}}</h6>
+                          <h6>Menu Description : {{restauMenu.menuDescription}}</h6>
+                            <br/>
+                            <button class="pull-right btn btn-sm btn-warning" (click)="addToCart(i)">Add to Cart</button>
+                            <hr>
+                            
+                
+                          </div>
+                          </div>
+    
+    
+            </div>
+          
+    
+    
+      
+    
+      
+            <!-- End Middle Column -->
+          </div>
+
+
+
+      
+          <!-- Right Column -->
+          <div class="w3-col m2">
+                <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
+                        <p>ADS</p>
+                      </div>
+            <br>
+      
+            <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
+                    <p>ADS</p>
+                  </div>
+            <br>
+      
+            <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
+              <p>ADS</p>
+            </div>
+            <br>
+      
+            <div class="w3-card w3-round w3-white w3-padding-32 w3-center">
+              <p>
+                <i class="fa fa-bug w3-xxlarge"></i>
+              </p>
+            </div>
+      
+            <!-- End Right Column -->
+          </div>
+      
+          <!-- End Grid -->
+        </div>
+      
+        <!-- End Page Container -->
+      </div>

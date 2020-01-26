@@ -55,45 +55,29 @@ export type DeleteRestaurantInput = {
   id?: string | null,
 };
 
-export type CreateTestingEventInput = {
+export type CreateRestaurantMenuInput = {
   id?: string | null,
-  testingEventName?: string | null,
-  eventStartDate?: string | null,
-  eventStartTime?: string | null,
-  eventEndDate?: string | null,
-  eventEndTime?: string | null,
-  testingEventRestaurantId?: string | null,
-};
-
-export type UpdateTestingEventInput = {
-  id: string,
-  testingEventName?: string | null,
-  eventStartDate?: string | null,
-  eventStartTime?: string | null,
-  eventEndDate?: string | null,
-  eventEndTime?: string | null,
-  testingEventRestaurantId?: string | null,
-};
-
-export type DeleteTestingEventInput = {
-  id?: string | null,
-};
-
-export type CreateEventMenuInput = {
-  id?: string | null,
-  menuPicture?: string | null,
+  menuType?: string | null,
+  menuPortion?: string | null,
+  menuName?: string | null,
+  menuDescription?: string | null,
   menuPrice?: string | null,
-  eventMenuTestingEventId?: string | null,
-};
-
-export type UpdateEventMenuInput = {
-  id: string,
   menuPicture?: string | null,
-  menuPrice?: string | null,
-  eventMenuTestingEventId?: string | null,
+  restaurantMenuRestaurantId?: string | null,
 };
 
-export type DeleteEventMenuInput = {
+export type UpdateRestaurantMenuInput = {
+  id: string,
+  menuType?: string | null,
+  menuPortion?: string | null,
+  menuName?: string | null,
+  menuDescription?: string | null,
+  menuPrice?: string | null,
+  menuPicture?: string | null,
+  restaurantMenuRestaurantId?: string | null,
+};
+
+export type DeleteRestaurantMenuInput = {
   id?: string | null,
 };
 
@@ -156,25 +140,17 @@ export type ModelRestaurantFilterInput = {
   not?: ModelRestaurantFilterInput | null,
 };
 
-export type ModelTestingEventFilterInput = {
+export type ModelRestaurantMenuFilterInput = {
   id?: ModelIDFilterInput | null,
-  testingEventName?: ModelStringFilterInput | null,
-  eventStartDate?: ModelStringFilterInput | null,
-  eventStartTime?: ModelStringFilterInput | null,
-  eventEndDate?: ModelStringFilterInput | null,
-  eventEndTime?: ModelStringFilterInput | null,
-  and?: Array< ModelTestingEventFilterInput | null > | null,
-  or?: Array< ModelTestingEventFilterInput | null > | null,
-  not?: ModelTestingEventFilterInput | null,
-};
-
-export type ModelEventMenuFilterInput = {
-  id?: ModelIDFilterInput | null,
-  menuPicture?: ModelStringFilterInput | null,
+  menuType?: ModelStringFilterInput | null,
+  menuPortion?: ModelStringFilterInput | null,
+  menuName?: ModelStringFilterInput | null,
+  menuDescription?: ModelStringFilterInput | null,
   menuPrice?: ModelStringFilterInput | null,
-  and?: Array< ModelEventMenuFilterInput | null > | null,
-  or?: Array< ModelEventMenuFilterInput | null > | null,
-  not?: ModelEventMenuFilterInput | null,
+  menuPicture?: ModelStringFilterInput | null,
+  and?: Array< ModelRestaurantMenuFilterInput | null > | null,
+  or?: Array< ModelRestaurantMenuFilterInput | null > | null,
+  not?: ModelRestaurantMenuFilterInput | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -306,16 +282,17 @@ export type CreateRestaurantMutation = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -352,16 +329,17 @@ export type UpdateRestaurantMutation = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -398,35 +376,37 @@ export type DeleteRestaurantMutation = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type CreateTestingEventMutationVariables = {
-  input: CreateTestingEventInput,
+export type CreateRestaurantMenuMutationVariables = {
+  input: CreateRestaurantMenuInput,
 };
 
-export type CreateTestingEventMutation = {
-  createTestingEvent:  {
-    __typename: "TestingEvent",
+export type CreateRestaurantMenuMutation = {
+  createRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -448,37 +428,28 @@ export type CreateTestingEventMutation = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type UpdateTestingEventMutationVariables = {
-  input: UpdateTestingEventInput,
+export type UpdateRestaurantMenuMutationVariables = {
+  input: UpdateRestaurantMenuInput,
 };
 
-export type UpdateTestingEventMutation = {
-  updateTestingEvent:  {
-    __typename: "TestingEvent",
+export type UpdateRestaurantMenuMutation = {
+  updateRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -500,37 +471,28 @@ export type UpdateTestingEventMutation = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type DeleteTestingEventMutationVariables = {
-  input: DeleteTestingEventInput,
+export type DeleteRestaurantMenuMutationVariables = {
+  input: DeleteRestaurantMenuInput,
 };
 
-export type DeleteTestingEventMutation = {
-  deleteTestingEvent:  {
-    __typename: "TestingEvent",
+export type DeleteRestaurantMenuMutation = {
+  deleteRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -552,135 +514,8 @@ export type DeleteTestingEventMutation = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type CreateEventMenuMutationVariables = {
-  input: CreateEventMenuInput,
-};
-
-export type CreateEventMenuMutation = {
-  createEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type UpdateEventMenuMutationVariables = {
-  input: UpdateEventMenuInput,
-};
-
-export type UpdateEventMenuMutation = {
-  updateEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type DeleteEventMenuMutationVariables = {
-  input: DeleteEventMenuInput,
-};
-
-export type DeleteEventMenuMutation = {
-  deleteEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
     } | null,
@@ -776,16 +611,17 @@ export type GetRestaurantQuery = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -822,8 +658,8 @@ export type ListRestaurantsQuery = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
     } | null > | null,
@@ -831,19 +667,20 @@ export type ListRestaurantsQuery = {
   } | null,
 };
 
-export type GetTestingEventQueryVariables = {
+export type GetRestaurantMenuQueryVariables = {
   id: string,
 };
 
-export type GetTestingEventQuery = {
-  getTestingEvent:  {
-    __typename: "TestingEvent",
+export type GetRestaurantMenuQuery = {
+  getRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -865,124 +702,44 @@ export type GetTestingEventQuery = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type ListTestingEventsQueryVariables = {
-  filter?: ModelTestingEventFilterInput | null,
+export type ListRestaurantMenusQueryVariables = {
+  filter?: ModelRestaurantMenuFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTestingEventsQuery = {
-  listTestingEvents:  {
-    __typename: "ModelTestingEventConnection",
+export type ListRestaurantMenusQuery = {
+  listRestaurantMenus:  {
+    __typename: "ModelRestaurantMenuConnection",
     items:  Array< {
-      __typename: "TestingEvent",
+      __typename: "RestaurantMenu",
       id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetEventMenuQueryVariables = {
-  id: string,
-};
-
-export type GetEventMenuQuery = {
-  getEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type ListEventMenusQueryVariables = {
-  filter?: ModelEventMenuFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListEventMenusQuery = {
-  listEventMenus:  {
-    __typename: "ModelEventMenuConnection",
-    items:  Array< {
-      __typename: "EventMenu",
-      id: string,
-      menuPicture: string | null,
+      menuType: string | null,
+      menuPortion: string | null,
+      menuName: string | null,
+      menuDescription: string | null,
       menuPrice: string | null,
-      testingEvent:  {
-        __typename: "TestingEvent",
+      menuPicture: string | null,
+      restaurant:  {
+        __typename: "Restaurant",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        addressLine1: string | null,
+        addressLine2: string | null,
+        websiteAddress: string | null,
+        phoneNumber: string | null,
+        restaurantName: string | null,
+        city: string | null,
+        state: string | null,
+        zipcode: string | null,
+        country: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -1102,16 +859,17 @@ export type OnCreateRestaurantSubscription = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -1144,16 +902,17 @@ export type OnUpdateRestaurantSubscription = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
@@ -1186,31 +945,33 @@ export type OnDeleteRestaurantSubscription = {
         nextToken: string | null,
       } | null,
     } | null,
-    tastingEvents:  {
-      __typename: "ModelTestingEventConnection",
+    RestaurantMenus:  {
+      __typename: "ModelRestaurantMenuConnection",
       items:  Array< {
-        __typename: "TestingEvent",
+        __typename: "RestaurantMenu",
         id: string,
-        testingEventName: string | null,
-        eventStartDate: string | null,
-        eventStartTime: string | null,
-        eventEndDate: string | null,
-        eventEndTime: string | null,
+        menuType: string | null,
+        menuPortion: string | null,
+        menuName: string | null,
+        menuDescription: string | null,
+        menuPrice: string | null,
+        menuPicture: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnCreateTestingEventSubscription = {
-  onCreateTestingEvent:  {
-    __typename: "TestingEvent",
+export type OnCreateRestaurantMenuSubscription = {
+  onCreateRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -1232,33 +993,24 @@ export type OnCreateTestingEventSubscription = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnUpdateTestingEventSubscription = {
-  onUpdateTestingEvent:  {
-    __typename: "TestingEvent",
+export type OnUpdateRestaurantMenuSubscription = {
+  onUpdateRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -1280,33 +1032,24 @@ export type OnUpdateTestingEventSubscription = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
   } | null,
 };
 
-export type OnDeleteTestingEventSubscription = {
-  onDeleteTestingEvent:  {
-    __typename: "TestingEvent",
+export type OnDeleteRestaurantMenuSubscription = {
+  onDeleteRestaurantMenu:  {
+    __typename: "RestaurantMenu",
     id: string,
-    testingEventName: string | null,
-    eventStartDate: string | null,
-    eventStartTime: string | null,
-    eventEndDate: string | null,
-    eventEndTime: string | null,
+    menuType: string | null,
+    menuPortion: string | null,
+    menuName: string | null,
+    menuDescription: string | null,
+    menuPrice: string | null,
+    menuPicture: string | null,
     restaurant:  {
       __typename: "Restaurant",
       id: string,
@@ -1328,123 +1071,8 @@ export type OnDeleteTestingEventSubscription = {
         profilePicture: string | null,
         isRestaurantOwnser: boolean | null,
       } | null,
-      tastingEvents:  {
-        __typename: "ModelTestingEventConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-    eventMenus:  {
-      __typename: "ModelEventMenuConnection",
-      items:  Array< {
-        __typename: "EventMenu",
-        id: string,
-        menuPicture: string | null,
-        menuPrice: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnCreateEventMenuSubscription = {
-  onCreateEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type OnUpdateEventMenuSubscription = {
-  onUpdateEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type OnDeleteEventMenuSubscription = {
-  onDeleteEventMenu:  {
-    __typename: "EventMenu",
-    id: string,
-    menuPicture: string | null,
-    menuPrice: string | null,
-    testingEvent:  {
-      __typename: "TestingEvent",
-      id: string,
-      testingEventName: string | null,
-      eventStartDate: string | null,
-      eventStartTime: string | null,
-      eventEndDate: string | null,
-      eventEndTime: string | null,
-      restaurant:  {
-        __typename: "Restaurant",
-        id: string,
-        addressLine1: string | null,
-        addressLine2: string | null,
-        websiteAddress: string | null,
-        phoneNumber: string | null,
-        restaurantName: string | null,
-        city: string | null,
-        state: string | null,
-        zipcode: string | null,
-        country: string | null,
-      } | null,
-      eventMenus:  {
-        __typename: "ModelEventMenuConnection",
+      RestaurantMenus:  {
+        __typename: "ModelRestaurantMenuConnection",
         nextToken: string | null,
       } | null,
     } | null,
